@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estoque - POO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- V5: Cabeçalho com o botão "Ver Conceito Bootstrap" -->
+        <header class="cabecalho">
+            <h1>Cadastro de Produtos</h1>
+            <button type="button" id="btn-bootstrap" class="btn-bootstrap">Ver Conceito Bootstrap</button>
+        </header>
+
+        <!--Formulário de Entrada-->
+        <form id="produto-form" novalidate>
+            <div class="form-group">
+                <label for="nome">Nome do produto:</label>
+                <input type="text" id="nome" placeholder="Ex. Notebook" />
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço (R$):</label>
+                <input type="number" id="preco" step="0.01" placeholder="Ex. 3500.00" />
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" placeholder="Ex. 5" />
+            </div>
+
+            <!-- V5: Container de mensagens inline (substitui o alert()) -->
+            <div id="mensagem-erro" class="mensagem-erro" role="alert" aria-live="assertive" hidden></div>
+
+            <button type="submit" class="btn-primary">Adicionar Produto</button>
+        </form>
+
+        <!--Cabeçalho de Ações e Resumo-->
+        <div class="resumo-container">
+            <h3 id="total-estoque">Total em Estoque: R$0,00</h3>
+            <button id="limpar-tabela" class="btn-danger">Limpar Tudo</button>
+        </div>
+
+        <!-- V4: Campo de pesquisa dinâmica | V6: seletor de ordenação ao lado -->
+        <div class="filtros">
+            <div class="form-group">
+                <label for="campo-busca">Pesquisar produto:</label>
+                <input type="text" id="campo-busca" placeholder="Digite parte do nome..." />
+            </div>
+
+            <div class="form-group">
+                <label for="ordenacao">Ordenar por:</label>
+                <select id="ordenacao">
+                    <option value="padrao">Padrão (Cadastro)</option>
+                    <option value="menor-quantidade">Menor Quantidade</option>
+                    <option value="maior-preco">Maior Preço</option>
+                    <option value="menor-preco">Menor Preço</option>
+                    <option value="alfabetica">Ordem Alfabética (A–Z)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- V6: Exportação CSV e Backup/Restauração JSON -->
+        <div class="ferramentas-dados">
+            <button type="button" id="btn-exportar-csv" class="btn-secundario">Exportar CSV</button>
+            <button type="button" id="btn-backup-json" class="btn-secundario">Baixar Backup (JSON)</button>
+            <button type="button" id="btn-restaurar-json" class="btn-secundario">Restaurar Backup</button>
+            <input type="file" id="input-restaurar" accept=".json,application/json" hidden />
+        </div>
+
+        <!--Tabela de Exibição-->
+        <table id="tabela-produtos">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Qtd</th>
+                    <th>Subtotal</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--As linhas da tabela serão inseridas através do Js-->
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="titulo-autores">Feito por</h2>
+    <div class="autores">
+        <div class="autor">
+            <img src="eu.webp" alt="Foto de Pedro Alves">
+            <p>Pedro Alves</p>
+        </div>
+
+        <div class="autor">
+            <img src="avatar.webp" alt="Foto de Gabriel Wilsek Mendes Dorado">
+            <p>Gabriel Wilsek Mendes Dorado</p>
+        </div>
+    </div>
+
+    <!-- V5: Modal customizado (substitui o confirm() e exibe o Conceito Bootstrap) -->
+    <div id="modal-overlay" class="modal-overlay" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+            <h2 id="modal-titulo" class="modal-titulo"></h2>
+            <div id="modal-corpo" class="modal-corpo"></div>
+            <div id="modal-acoes" class="modal-acoes"></div>
+        </div>
+    </div>
+
+    <!-- V5: Área de notificações rápidas (Toast) -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
